@@ -6,11 +6,21 @@ const IMAGE_BASE_URL = "https://cdn.cloudflare.steamstatic.com";
 function App() {
   const [heroes, setHeroes] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [displayedHeroes, setDisplayedHeroes] = useState([]);
   const [error, setError] = useState('');
   const [score, setScore] = useState(0);
   const [clickedHeroes, setClickedHeroes] = useState([]);
   const [gameOver, setGameOver] = useState(false);
   // let currentBestScore = 5;
+
+  function shuffleHeroes(heroes) {
+    for(let i = heroes.length-1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [heroes[i], heroes[j]] = [heroes[j], heroes[i]];
+    }
+
+    return heroes;
+  }
 
   useEffect(() => {
     async function fetchHeroes() {
@@ -23,7 +33,11 @@ function App() {
 
         const data = await response.json();
 
-        setHeroes(data.slice(0, 12));
+        const initialHeroes = data.slice(0, 12);
+        setHeroes(initialHeroes);
+
+        setDisplayedHeroes(shuffleHeroes(initialHeroes));
+        // setHeroes(data.slice(0, 12));
       } catch(error) {
         setError(error.message);
       } finally {
@@ -42,8 +56,11 @@ function App() {
 
     setClickedHeroes((previous) => [...previous, hero.id]);
     setScore((previous) => previous + 1);
+
+    setDisplayedHeroes((previous) => shuffleHeroes(previous));
   }
 
+  
   if (loading) {
     return <h1>Heroes are being summons</h1>
   }
@@ -78,7 +95,7 @@ function App() {
       )}
 
       <section className="hero-grid">
-        {heroes.map((hero) => {
+        {displayedHeroes.map((hero) => {
           return  <HeroCard 
             key={hero.id}
             hero={hero}
