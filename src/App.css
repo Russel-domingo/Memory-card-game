@@ -161,3 +161,9 @@
 .game-over button:hover {
   background: #ad3838;
 }
+
+.hero-card.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}

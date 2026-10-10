@@ -4,7 +4,7 @@ import "./App.css"
 const API_URL = "https://api.opendota.com/api/heroStats";
 const IMAGE_BASE_URL = "https://cdn.cloudflare.steamstatic.com";
 function App() {
-  const [heroes, setHeroes] = useState([]);
+  // const [heroes, setHeroes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [displayedHeroes, setDisplayedHeroes] = useState([]);
   const [error, setError] = useState('');
@@ -14,12 +14,13 @@ function App() {
   // let currentBestScore = 5;
 
   function shuffleHeroes(heroes) {
+    const shuffled = [...heroes];
     for(let i = heroes.length-1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
-      [heroes[i], heroes[j]] = [heroes[j], heroes[i]];
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
     }
 
-    return heroes;
+    return shuffled;
   }
 
   useEffect(() => {
@@ -34,7 +35,7 @@ function App() {
         const data = await response.json();
 
         const initialHeroes = data.slice(0, 12);
-        setHeroes(initialHeroes);
+        // setHeroes(initialHeroes);
 
         setDisplayedHeroes(shuffleHeroes(initialHeroes));
         // setHeroes(data.slice(0, 12));
@@ -49,6 +50,8 @@ function App() {
   }, []);
 
   function handleHeroClick(hero) {
+    if(gameOver) return;
+
     if(clickedHeroes.includes(hero.id)) {
       setGameOver(true);
       return
@@ -57,7 +60,7 @@ function App() {
     setClickedHeroes((previous) => [...previous, hero.id]);
     setScore((previous) => previous + 1);
 
-    setDisplayedHeroes((previous) => shuffleHeroes(previous));
+    setDisplayedHeroes((previous) => shuffleHeroes([...previous]));
   }
 
   function restartGame() {
@@ -111,6 +114,7 @@ function App() {
             hero={hero}
             imageUrl={`${IMAGE_BASE_URL}${hero.img}`  }
             onClick={() => handleHeroClick(hero)}
+            disabled={gameOver}
             >
           </HeroCard>
          

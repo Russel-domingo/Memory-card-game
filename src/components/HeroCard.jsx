@@ -1,6 +1,9 @@
 function HeroCard(props) {
     return(
-        <article className="hero-card" onClick={props.onClick}>
+        <article 
+            className={`hero-card ${props.disabled ? "disabled" : ""}`}
+            onClick={props.onClick}
+        >
             <img 
             className="hero-image"
             src={props.imageUrl} 
