@@ -141,3 +141,23 @@
   color: #d65c4a;
   margin-bottom: 24px;
 }
+
+.game-over {
+  text-align: center;
+  margin: 24px 0;
+  color: #d65c4a;
+}
+
+.game-over button {
+  background: #8b2929;
+  color: #fff;
+  border: 1px solid #c29453;
+  padding: 12px 24px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.game-over button:hover {
+  background: #ad3838;
+}
