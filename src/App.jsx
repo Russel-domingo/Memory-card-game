@@ -1,4 +1,4 @@
-import {  useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import HeroCard from "./components/HeroCard";
 import "./App.css"
 const API_URL = "https://api.opendota.com/api/heroStats";
@@ -56,10 +56,8 @@ function App() {
       setGameOver(true);
       return
     }
-
     setClickedHeroes((previous) => [...previous, hero.id]);
     setScore((previous) => previous + 1);
-
     setDisplayedHeroes((previous) => shuffleHeroes([...previous]));
   }
 
@@ -106,6 +104,7 @@ function App() {
           </button>
         </div>
       )}
+
 
       <section className="hero-grid">
         {displayedHeroes.map((hero) => {
