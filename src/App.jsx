@@ -60,6 +60,12 @@ function App() {
     setDisplayedHeroes((previous) => shuffleHeroes(previous));
   }
 
+  function restartGame() {
+    setScore(0);
+    setClickedHeroes([]);
+    setGameOver(false);
+    setDisplayedHeroes((previous) => shuffleHeroes(previous));
+  }
   
   if (loading) {
     return <h1>Heroes are being summons</h1>
@@ -89,9 +95,13 @@ function App() {
       </div>
 
       {gameOver && (
-        <h2 className="game-over">
-          Game Over! Final Score: {score}
-        </h2>
+        <div className="game-over">
+          <h2>Game Over!</h2>
+          <p>Final Score: {score}</p>
+          <button onClick={restartGame}>
+            Play Again
+          </button>
+        </div>
       )}
 
       <section className="hero-grid">
