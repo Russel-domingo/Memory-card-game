@@ -1,4 +1,4 @@
-import { use, useEffect, useState } from "react";
+import {  useEffect, useState } from "react";
 import HeroCard from "./components/HeroCard";
 import "./App.css"
 const API_URL = "https://api.opendota.com/api/heroStats";
@@ -66,7 +66,16 @@ function App() {
         </p>
       </header>
 
-      <div className="scoreboard"></div>
+      <div className="scoreboard">
+        <p>Score: {score}</p>
+        <p>Heroes selected: {clickedHeroes.length}</p>
+      </div>
+
+      {gameOver && (
+        <h2 className="game-over">
+          Game Over! Final Score: {score}
+        </h2>
+      )}
 
       <section className="hero-grid">
         {heroes.map((hero) => {

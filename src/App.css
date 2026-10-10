@@ -126,3 +126,18 @@
     padding: 10px;
   }
 }
+
+.scoreboard {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  color: #e5c18b;
+  font-weight: 700;
+  margin-bottom: 24px;
+}
+
+.game-over {
+  text-align: center;
+  color: #d65c4a;
+  margin-bottom: 24px;
+}
